@@ -1,0 +1,68 @@
+<div class="container" style="padding-top: 60px">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <h1 class="card-title text-center mb-4 fw-light fw-bold">Sign In</h1>
+          <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                formControlName="email"
+                class="form-control"
+                placeholder="XXXXXXX"
+              />
+              <label for="floatingInput">email</label>
+              <small
+                *ngIf="
+                  loginForm.controls['email'].errors &&
+                  loginForm.controls['email'].touched
+                "
+                class="text-danger"
+              >
+                email is required
+              </small>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control"
+                placeholder="Password"
+              />
+              <label for="floatingPassword">Password</label>
+              <small
+                *ngIf="
+                  loginForm.controls['password'].errors &&
+                  loginForm.controls['password'].touched
+                "
+                class="text-danger"
+              >
+                Password is required
+              </small>
+            </div>
+
+            <div class="d-grid">
+              <button
+                [disabled]="loginForm.invalid"
+                class="btn btn-secondary btn-login text-uppercase fw-bold"
+                type="submit"
+              >
+                Sign in
+              </button>
+            </div>
+          </form>
+          <p class="text-center mt-3 mb-0">
+            Don't have an account?
+            <a
+              href="/register"
+              style="color: #585858; text-decoration: none; font-weight: bold"
+              >Register here</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Lato:400,300,700"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<div class="container shadow rounded-3" id="resumeId">
+  <div class="header">
+    <div class="full-name">
+      <span class="first-name">{{ resume?.fname }}</span>
+      <span class="last-name">{{ resume?.lname }}</span>
+    </div>
+    <div class="contact-info">
+      <span class="email">Email: </span>
+      <span class="email-val">{{ resume?.contact?.email }}</span>
+      <span class="separator"></span>
+      <span class="email">Location: </span>
+      <span class="email-val">{{ resume?.contact?.location }}</span>
+      <span class="separator"></span>
+      <span class="email">Phone: </span>
+      <span class="email-val">{{ resume?.contact?.phone }}</span>
+    </div>
+
+    <div class="about">
+      <span class="position">{{ resume?.profile?.title }} </span>
+      <span class="desc">{{ resume?.profile?.description }}</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <!-- experience section -->
+    <div class="section" *ngIf="resume?.experience?.length">
+      <div class="section__title">Experience</div>
+      <div class="section__list">
+        <div *ngFor="let exp of resume?.experience" class="section__list-item">
+          <div class="left">
+            <div class="name">{{ exp.company }}</div>
+            <div class="addr">{{ exp.location }}</div>
+          </div>
+          <div class="right">
+            <div class="name">{{ exp.title }}</div>
+            <div class="duration">
+              {{ exp.startDate | date : "MMM yyyy" }} -
+              {{ exp.endDate | date : "MMM yyyy" }}
+            </div>
+          </div>
+          <span class="desc">
+            <ul class="points">
+              <li>{{ exp.description }}</li>
+            </ul>
+          </span>
+          <div class="skills">
+            <span class="title">skills :</span>
+            <span *ngFor="let s of exp.skills">
+              <span class="skill">{{ s }},</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- education section -->
+    <div class="section" *ngIf="resume?.education?.length">
+      <div class="section__title">Education</div>
+      <div class="section__list">
+        <div *ngFor="let edu of resume?.education" class="section__list-item">
+          <div class="left">
+            <div class="name">{{ edu.degree }}, {{ edu.major }}</div>
+            <div class="addr">{{ edu.location }}</div>
+          </div>
+          <div class="right">
+            <div class="name">{{ edu.university }}</div>
+            <div class="duration">
+              {{ edu.startDate | date : "MMM yyyy" }} -
+              {{ edu.endDate | date : "MMM yyyy" }}
+            </div>
+          </div>
+          <span class="desc">
+            <ul class="points">
+              <li>
+                <span class="title">Relevant Courses: </span>
+                <span *ngFor="let c of edu.relevantCourses">
+                  <span class="skill">{{ c }},</span>
+                </span>
+              </li>
+            </ul>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- projects section -->
+    <div class="section" *ngIf="resume?.projects?.length">
+      <div class="section__title">Projects</div>
+      <div class="section__list">
+        <div *ngFor="let proj of resume?.projects" class="section__list-item">
+          <div class="name">{{ proj.title }}</div>
+          <div class="text">{{ proj.description }}</div>
+          <div class="skills">
+            <span class="title">skills :</span>
+            <span *ngFor="let t of proj.technologies">
+              <span class="skill">{{ t }},</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- skills section -->
+    <div class="section" *ngIf="resume?.skills">
+      <div class="section__title">Skills</div>
+      <div class="skills">
+        <span class="title">Technicals :</span>
+        <span *ngFor="let t of resume?.skills?.technical">
+          <span class="skill">{{ t }},</span>
+        </span>
+      </div>
+      <div class="skills">
+        <span class="title">Tools :</span>
+        <span *ngFor="let t of resume?.skills?.tools">
+          <span class="skill">{{ t }},</span>
+        </span>
+      </div>
+      <div class="skills">
+        <span class="title">Others :</span>
+        <span *ngFor="let o of resume?.skills?.others">
+          <span class="skill">{{ o }},</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- language section -->
+    <div class="section" *ngIf="resume?.languages?.length">
+      <div class="section__title">Languages</div>
+      <div class="skills">
+        <span *ngFor="let l of resume?.languages">
+          <span class="skill">{{ l }},</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- interests section -->
+    <div class="section" *ngIf="resume?.interests?.length">
+      <div class="section__title">Interests</div>
+      <div class="skills">
+        <span *ngFor="let i of resume?.interests">
+          <span class="skill">{{ i }},</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

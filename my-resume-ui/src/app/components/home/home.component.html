@@ -1,0 +1,203 @@
+<app-nav-bar></app-nav-bar>
+<mat-drawer-container style="background-color: #ffffff; height: 92%">
+  <mat-drawer
+    opened="true"
+    mode="side"
+    position="start"
+    style="background-color: #ffffff; width: 16%"
+  >
+    <mat-nav-list>
+      <!-- loading resumeList -->
+      <ng-container *ngIf="loadingUserResumes === true; else resumeListLoaded">
+        Loading User Resumes...
+      </ng-container>
+      <ng-template #resumeListLoaded>
+        <!-- Check if resumeList is empty -->
+        <ng-container
+          *ngIf="resumeList && resumeList.length > 0; else emptyListTemplate"
+        >
+          <div *ngFor="let r of resumeList">
+            <mat-list-item (click)="handleGetResumeById(r.id)">
+              {{ r.request }}
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <!-- Divider added here -->
+          </div>
+        </ng-container>
+
+        <!-- Template to show if the list is empty -->
+        <ng-template #emptyListTemplate>
+          <div
+            class="empty-list-message"
+            style="text-align: center; padding: 20px"
+          >
+            <i class="bi bi-folder2-open"></i>
+            <p style="color: #757575; font-size: 16px">No resumes available</p>
+          </div>
+        </ng-template>
+      </ng-template>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content
+    style="
+      width: 84%;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background-color: #ffffff;
+      overflow-y: auto;
+    "
+  >
+    <!-- loading Generating resume -->
+    <ng-container
+      *ngIf="LoadingGeneratingResume === true; else generatingResumeLoaded"
+    >
+      <div
+        class="d-flex flex-column justify-content-center align-items-center"
+        style="height: 60vh"
+      >
+        <!-- Larger loading message -->
+        <h1 class="mb-3 text-center" style="font-size: 2.5rem; color: #444">
+          Generating Your Resume...
+        </h1>
+        <p class="text-center" style="font-size: 1.25rem; color: #666">
+          Just a moment, we’re preparing your perfect resume.
+        </p>
+
+        <!-- Enlarged Skeleton Loader for Resumes -->
+        <div
+          class="skeleton-loader"
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-top: 40px;
+            width: 90%;
+            max-width: 600px;
+          "
+        >
+          <div *ngFor="let _ of [1, 2, 3]" class="skeleton-card">
+            <div
+              class="skeleton-text"
+              style="
+                background-color: #e0e0e0;
+                height: 24px;
+                width: 100%;
+                margin-bottom: 12px;
+                border-radius: 6px;
+              "
+            ></div>
+            <div
+              class="skeleton-text"
+              style="
+                background-color: #e0e0e0;
+                height: 24px;
+                width: 80%;
+                border-radius: 6px;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div style="flex-grow: 1; overflow-y: auto"></div>
+    </ng-container>
+
+    <ng-template #generatingResumeLoaded>
+      <ng-template #noGenerated>
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+          style="height: 60vh"
+        >
+          <h1 class="mb-3 text-center">Hello, {{ userName }}</h1>
+          <strong class="text-center"
+            >Make your perfect resume in seconds.</strong
+          >
+        </div>
+        <div style="flex-grow: 1; overflow-y: auto"></div>
+      </ng-template>
+      <!-- Scrollable component -->
+      <div
+        style="flex-grow: 1; overflow-y: auto"
+        *ngIf="inGenerated === true; else noGenerated"
+      >
+        <div
+          style="padding-top: 10px; padding-left: 200px; padding-right: 290px"
+        >
+          <!-- list of button  -->
+          <div class="nav">
+            <span style="flex: auto"></span>
+            <a class="btn btn-secondary" (click)="generatePDF()"
+              ><i class="bi bi-download"></i><span class="ms-2">Download</span>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="style === 1; else noStyleOne">
+          <app-resume-tmp-one [resume]="resume"></app-resume-tmp-one>
+        </div>
+        <ng-template #noStyleOne>
+          <app-resume-tmp-two [resume]="resume"></app-resume-tmp-two>
+        </ng-template>
+      </div>
+    </ng-template>
+
+    <!-- Fixed input field -->
+    <div style="padding-top: 20px; padding-left: 200px; padding-right: 200px">
+      <ng-template #noGeneratedb> </ng-template>
+      <!-- list of button  -->
+      <div class="nav mb-3" *ngIf="inGenerated === true; else noGeneratedb">
+        <button
+          class="btn btn-outline-secondary ms-2"
+          [disabled]="style === 1"
+          (click)="handleChangeResumeStyle(1)"
+        >
+          <i class="bi bi-eyedropper"></i><span class="ms-2">style one</span>
+        </button>
+        <button
+          class="btn btn-outline-secondary ms-2"
+          [disabled]="style === 2"
+          (click)="handleChangeResumeStyle(2)"
+        >
+          <i class="bi bi-eyedropper"></i><span class="ms-2">style two</span>
+        </button>
+
+        <span style="flex: auto"></span>
+
+        <button
+          class="btn btn-secondary ms-2"
+          [disabled]="ResumeSaved === true"
+          (click)="handleSaveResume()"
+        >
+          <i class="bi bi-floppy-fill"></i><span class="ms-2">Save resume</span>
+        </button>
+        <button
+          [disabled]="generatedResumeSaved === false"
+          (click)="handleEditResume()"
+          class="btn btn-secondary ms-2"
+        >
+          <i class="bi bi-pen-fill"></i><span class="ms-2">Edit resume</span>
+        </button>
+      </div>
+
+      <!-- form search  -->
+      <form [formGroup]="searchFormGroup" (submit)="handleGenerateResume()">
+        <div class="input-group" style="margin-bottom: 40px">
+          <textarea
+            type="text"
+            class="form-control"
+            placeholder="Write Job Description"
+            formControlName="keyword"
+            rows="1"
+          ></textarea>
+          <button
+            [disabled]="searchFormGroup.invalid || LoadingGeneratingResume"
+            type="submit"
+            class="btn btn-outline-secondary"
+          >
+            Generate
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

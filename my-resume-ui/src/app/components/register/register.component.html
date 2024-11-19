@@ -1,0 +1,108 @@
+<div class="container" style="padding-top: 60px">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <h1 class="card-title text-center mb-4 fw-light fw-bold">Register</h1>
+          <form
+            [formGroup]="registrationForm"
+            (ngSubmit)="handleRegistration()"
+          >
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                formControlName="fname"
+                class="form-control"
+                placeholder="First Name"
+              />
+              <label for="floatingInput">First Name</label>
+              <small
+                *ngIf="
+                  registrationForm.controls['fname'].errors &&
+                  registrationForm.controls['fname'].touched
+                "
+                class="text-danger"
+              >
+                First Name is required
+              </small>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                formControlName="lname"
+                class="form-control"
+                placeholder="Last Name"
+              />
+              <label for="floatingInput">Last Name</label>
+              <small
+                *ngIf="
+                  registrationForm.controls['lname'].errors &&
+                  registrationForm.controls['lname'].touched
+                "
+                class="text-danger"
+              >
+                Last Name is required
+              </small>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="Email"
+              />
+              <label for="floatingPassword">Email</label>
+              <small
+                *ngIf="
+                  registrationForm.controls['email'].errors &&
+                  registrationForm.controls['email'].touched
+                "
+                class="text-danger"
+              >
+                Email is required
+              </small>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control"
+                placeholder="Password"
+              />
+              <label for="floatingPassword">Password</label>
+              <small
+                *ngIf="
+                  registrationForm.controls['password'].errors &&
+                  registrationForm.controls['password'].touched
+                "
+                class="text-danger"
+              >
+                Password is required
+              </small>
+            </div>
+
+            <div class="d-grid">
+              <button
+                [disabled]="registrationForm.invalid"
+                class="btn btn-secondary btn-login text-uppercase fw-bold"
+                type="submit"
+              >
+                Register
+              </button>
+            </div>
+          </form>
+
+          <p class="text-center mt-3 mb-0">
+            Already have an account?
+            <a
+              href="/login"
+              style="color: #585858; text-decoration: none; font-weight: bold"
+              >Login here</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

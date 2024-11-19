@@ -1,0 +1,148 @@
+<app-nav-bar></app-nav-bar>
+
+<ng-template #loading>
+  <div
+    class="d-flex justify-content-center align-items-center"
+    style="height: 60vh"
+  >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>
+<div class="containerz" *ngIf="isLoading === false; else loading">
+  <div class="left">
+    <div class="nav">
+      <h2>View Resume</h2>
+      <span style="flex: auto"></span>
+      <button class="btn btn-secondary" (click)="generatePDF()">
+        <i class="bi bi-download"></i><span class="ms-2">Download</span>
+      </button>
+    </div>
+    <!-- Add more content here -->
+    <app-resume-tmp-one [resume]="resume"></app-resume-tmp-one>
+  </div>
+  <div class="right">
+    <form [formGroup]="profileForm">
+      <div class="nav">
+        <h2>Edit Resume</h2>
+        <span style="flex: auto"></span>
+        <!-- <button class="btn btn-secondary" (click)="handlEditResume()">
+          <i class="bi bi-floppy-fill"></i><span class="ms-2">Save resume</span>
+        </button> -->
+      </div>
+      <hr class="my-4" />
+      <h5>Personal Information</h5>
+      <label>First Name:</label>
+      <input type="text" class="form-control" formControlName="fname" />
+      <label>Last Name:</label>
+      <input type="text" class="form-control" formControlName="lname" />
+      <div formGroupName="contact">
+        <label>Email:</label>
+        <input type="email" class="form-control" formControlName="email" />
+        <label>Phone:</label>
+        <input type="text" class="form-control" formControlName="phone" />
+        <label>Address:</label>
+        <input type="text" class="form-control" formControlName="address" />
+      </div>
+
+      <h5>Profile</h5>
+      <div formGroupName="profile">
+        <label>Title:</label>
+        <input type="text" class="form-control" formControlName="title" />
+        <label>Description:</label>
+        <textarea class="form-control" formControlName="description"></textarea>
+      </div>
+
+      <!-- Experience Form Array -->
+      <h5>Experience</h5>
+      <div formGroupName="experience">
+        <!-- Experience fields here -->
+        <label>Title:</label>
+        <input type="text" formControlName="title" class="form-control" />
+        <label>Company:</label>
+        <input type="text" formControlName="company" class="form-control" />
+        <label>Location:</label>
+        <input type="text" class="form-control" formControlName="location" />
+        <label>Description:</label>
+        <textarea class="form-control" formControlName="description"></textarea>
+      </div>
+      <h5>Education</h5>
+      <div formGroupName="education">
+        <label>Degree:</label>
+        <input type="text" class="form-control" formControlName="degree" />
+        <label>Major:</label>
+        <input type="text" class="form-control" formControlName="major" />
+        <label>University:</label>
+        <input type="text" class="form-control" formControlName="university" />
+        <label>Location:</label>
+        <input type="text" class="form-control" formControlName="location" />
+      </div>
+      <h5>Projects</h5>
+      <div formGroupName="projects">
+        <label>Title:</label>
+        <input type="text" class="form-control" formControlName="title" />
+        <label>Description:</label>
+        <textarea class="form-control" formControlName="description"></textarea>
+      </div>
+
+      <h5>Languages</h5>
+      <div [formGroup]="langsFormGroup" class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="add language"
+          formControlName="keyword"
+        />
+        <button class="btn btn-outline-secondary" (click)="onAddLangToResume()">
+          <i class="bi bi-plus-square"></i>
+        </button>
+      </div>
+      <ng-container *ngIf="resume.languages !== []; else nolangs">
+        <div class="nav-container">
+          <div class="nav" *ngFor="let l of resume.languages">
+            <button
+              type="submit"
+              class="btn btn-outline-secondary"
+              (click)="onRemoveLangFromResume(l)"
+            >
+              {{ l }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #nolangs> </ng-template>
+      <h5>Interests</h5>
+      <div [formGroup]="intsFormGroup" class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="add interest"
+          formControlName="keyword"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          (click)="onAddIntersToResume()"
+        >
+          <i class="bi bi-plus-square"></i>
+        </button>
+      </div>
+      <ng-container *ngIf="resume.interests !== []; else noInters">
+        <div class="nav-container">
+          <div class="nav" *ngFor="let i of resume.interests">
+            <button
+              type="submit"
+              class="btn btn-outline-secondary"
+              (click)="onRemoveIntersFromResume(i)"
+            >
+              {{ i }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noInters> </ng-template>
+    </form>
+
+    <!-- Add more content here -->
+  </div>
+</div>

@@ -1,0 +1,59 @@
+.containerz {
+  display: flex;
+  height: 90.8%;
+}
+.left {
+  flex: 0.4;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px 0px;
+  border-right: 1px solid #ccc; /* Add border for separation */
+}
+.right {
+  flex: 2.5;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Styling for scrollbars (optional) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.nav-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px; /* Adjust as needed */
+}
+
+.nav {
+  flex-grow: 0; /* Prevent buttons from growing */
+}
+
+.mat-nav-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mat-nav-list li {
+  cursor: pointer;
+  padding: 12px 16px;
+  transition: background-color 0.3s ease;
+  color: #555;
+}
+.mat-nav-list a {
+  text-decoration: none;
+}
+.mat-nav-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.mat-nav-list li.active {
+  background-color: #e0e0e0;
+}

@@ -1,0 +1,58 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo-rsm
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    networks:
+      - my_resume_network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express-rsm
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - my_resume_network
+
+  my-resume-api:
+    container_name: myr-esume-app-api
+    image: my-resume/api:1.0.0
+    restart: always
+    ports:
+      - "8088:8088"
+    networks:
+      - mongo_network
+    depends_on:
+      - mongo
+
+  my-resume-ui:
+    container_name: my-resume-app-ui
+    image: my-resume/ui:1.0.0
+    ports:
+      - "8080:80"
+    networks:
+      - mongo_network
+    depends_on:
+      - app-api
+
+
+
+
+networks:
+  my_resume_network:
+    driver: bridge

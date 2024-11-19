@@ -1,0 +1,404 @@
+<app-nav-bar></app-nav-bar>
+<div class="container mt-5">
+  <!-- Page Title and Subtitle -->
+  <div class="text-center mb-4">
+    <h1 class="page-title">Create Your Portfolio</h1>
+    <p class="page-subtitle">
+      Build your professional portfolio by filling out the sections below
+    </p>
+  </div>
+  <!-- Card for Form -->
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <h2 class="card-title">Create Your Portfolio</h2>
+        <span class="flex-grow-1"></span>
+        <button class="btn btn-secondary" (click)="handlEditResume()">
+          <i class="bi bi-floppy-fill"></i>
+          <span class="ms-2">Save</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-- Accordion -->
+      <div class="accordion" id="accordionExample">
+        <form [formGroup]="profileForm">
+          <!-- Personal Information Section -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPersonalInfo">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapsePersonalInfo"
+                aria-expanded="true"
+                aria-controls="collapsePersonalInfo"
+              >
+                Personal Information
+              </button>
+            </h2>
+            <div
+              id="collapsePersonalInfo"
+              class="accordion-collapse collapse show"
+              aria-labelledby="headingPersonalInfo"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <label>First Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="fname"
+                />
+                <label>Last Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lname"
+                />
+                <div formGroupName="contact">
+                  <label>Email:</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                  <label>Phone:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="phone"
+                  />
+                  <label>Address:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="address"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile Section -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingProfile">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseProfile"
+                aria-expanded="false"
+                aria-controls="collapseProfile"
+              >
+                Profile
+              </button>
+            </h2>
+            <div
+              id="collapseProfile"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingProfile"
+              data-bs-parent="#accordionExample"
+              formGroupName="profile"
+            >
+              <div class="accordion-body">
+                <label>Title:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="title"
+                />
+                <label>Description:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="description"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Section -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingExperience">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExperience"
+                aria-expanded="false"
+                aria-controls="collapseExperience"
+              >
+                Experience
+              </button>
+            </h2>
+            <div
+              id="collapseExperience"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingExperience"
+              data-bs-parent="#accordionExample"
+              formGroupName="experience"
+            >
+              <div class="accordion-body">
+                <label>Title:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="xtitle"
+                />
+                <label>Company:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="company"
+                />
+                <label>Location:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="location"
+                />
+                <label>Description:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="xdescription"
+                ></textarea>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="me-2" style="flex: 1">
+                    <label>Start Date:</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      formControlName="startDate"
+                    />
+                  </div>
+                  <div style="flex: 1">
+                    <label>End Date:</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      formControlName="endDate"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education Section -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEducation">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseEducation"
+                aria-expanded="false"
+                aria-controls="collapseEducation"
+              >
+                Education
+              </button>
+            </h2>
+            <div
+              id="collapseEducation"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingEducation"
+              data-bs-parent="#accordionExample"
+              formGroupName="education"
+            >
+              <div class="accordion-body">
+                <label>Degree:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="degree"
+                />
+                <label>Major:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="major"
+                />
+                <label>University:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="university"
+                />
+                <label>Location:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="location"
+                />
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="me-2" style="flex: 1">
+                    <label>Start Date:</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      formControlName="startDate"
+                    />
+                  </div>
+                  <div style="flex: 1">
+                    <label>End Date:</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      formControlName="endDate"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects Section -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingProjects">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseProjects"
+                aria-expanded="false"
+                aria-controls="collapseProjects"
+                formGroupName="projects"
+              >
+                Projects
+              </button>
+            </h2>
+            <div
+              id="collapseProjects"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingProjects"
+              data-bs-parent="#accordionExample"
+              formGroupName="projects"
+            >
+              <div class="accordion-body">
+                <label>Title:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="ptitle"
+                />
+                <label>Description:</label>
+                <textarea
+                  class="form-control"
+                  formControlName="pdescription"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Languages Section -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingLanguages">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseLanguages"
+                aria-expanded="false"
+                aria-controls="collapseLanguages"
+              >
+                Languages
+              </button>
+            </h2>
+            <div
+              id="collapseLanguages"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingLanguages"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <div [formGroup]="langsFormGroup" class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Add language"
+                    formControlName="keyword"
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    (click)="onAddLangToResume()"
+                  >
+                    <i class="bi bi-plus-square"></i>
+                  </button>
+                </div>
+
+                <ng-container *ngIf="langsList.length > 0; else nolangs">
+                  <div class="nav-container">
+                    <div class="nav" *ngFor="let l of langsList">
+                      <button
+                        type="submit"
+                        class="btn btn-outline-secondary"
+                        (click)="onRemoveLangFromResume(l)"
+                      >
+                        {{ l }}
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #nolangs> </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interests Section -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingInterests">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseInterests"
+                aria-expanded="false"
+                aria-controls="collapseInterests"
+              >
+                Interests
+              </button>
+            </h2>
+            <div
+              id="collapseInterests"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingInterests"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body">
+                <div [formGroup]="intsFormGroup" class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Add interest"
+                    formControlName="keyword"
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    (click)="onAddIntersToResume()"
+                  >
+                    <i class="bi bi-plus-square"></i>
+                  </button>
+                </div>
+
+                <ng-container *ngIf="intersList.length > 0; else noInters">
+                  <div class="nav-container">
+                    <div class="nav" *ngFor="let i of intersList">
+                      <button
+                        type="submit"
+                        class="btn btn-outline-secondary"
+                        (click)="onRemoveIntersFromResume(i)"
+                      >
+                        {{ i }}
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #noInters> </ng-template>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
