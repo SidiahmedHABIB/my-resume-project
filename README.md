@@ -51,10 +51,11 @@ Want to see MyResume in action? Check out this quick demo video showcasing how t
 - **Database**: MongoDB
 - **Containerization**: Docker
 
+
 ## Getting Started
 
 ### Prerequisites
-- **Java 17+**
+- **Java 21+**
 - **Node.js**
 - **MongoDB**
 - **Docker**
@@ -64,34 +65,30 @@ Want to see MyResume in action? Check out this quick demo video showcasing how t
 1. Clone the repository:
    ```bash  
    git clone https://github.com/SidiahmedHABIB/my-resume-project 
+   cd my-resume-project
    ```  
 
-2. Navigate to the backend directory:
-   ```bash  
-   cd backend  
-   ```  
-
-3. Build and run the backend:
-   ```bash  
-   ./mvnw spring-boot:run  
-   ```  
-
-4. Navigate to the frontend directory:
-   ```bash  
-   cd frontend  
-   ```  
-
-5. Install dependencies and start the Angular app:
-   ```bash  
-   npm install  
-   npm start  
-   ```  
-
-6. Run Docker to containerize the application:
-   ```bash  
-   docker-compose up  
+2. Build the backend Docker image:
+   ```bash
+   cd docker/backend
+   docker build -t my-resume-backend .
+   cd ../..
    ```
 
+3. Build the frontend Docker image:
+   ```bash
+   cd docker/frontend
+   docker build -t my-resume-frontend .
+   cd ../..
+   ```
+
+4. Start the entire application using Docker Compose:
+   ```bash
+   docker-compose up
+   ```
+
+5. Access the application:
+   - **Frontend**: Open your browser and go to [http://localhost:4200](http://localhost:4200).
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

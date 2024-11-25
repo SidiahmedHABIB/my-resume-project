@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mongo:
     image: mongo:latest
@@ -28,30 +30,35 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
     networks:
       - my_resume_network
-
-  my-resume-api:
-    container_name: myr-esume-app-api
-    image: my-resume/api:1.0.0
-    restart: always
-    ports:
-      - "8088:8088"
-    networks:
-      - mongo_network
     depends_on:
       - mongo
 
-  my-resume-ui:
-    container_name: my-resume-app-ui
-    image: my-resume/ui:1.0.0
+  my-resume-api:
+    image: my-resume-backend:latest
+    container_name: my-resume-api
+    restart: always
     ports:
-      - "8080:80"
+      - "8080:8080"
     networks:
-      - mongo_network
+      - my_resume_network
     depends_on:
-      - app-api
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_USERNAME: root
+      SPRING_DATA_MONGODB_PASSWORD: root
 
-
-
+  my-resume-ui:
+    image: my-resume-frontend:latest
+    container_name: my-resume-ui
+    restart: always
+    ports:
+      - "4200:80"
+    networks:
+      - my_resume_network
+    depends_on:
+      - my-resume-api
 
 networks:
   my_resume_network:
